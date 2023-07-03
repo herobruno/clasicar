@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<style>
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  
+  
+    overflow-x: hidden;
+  }
+  body{
+    background-color: #f9f9f9;
+  }
+  
+  /* Aqui é o cabeçalho da página*/
+  
+header.cabecalho{
+    background-color:rgba(244, 67, 54,.9);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+    padding: 10px 0px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .logo{
+    margin-left: 50px;
+    width: 6rem;
+  }
+  .cabecalho__menu{
+    display: none;
+    position: absolute;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 24px 0px 24px 0px;
+  }
+  .container__botao:checked~.cabecalho__menu{
+    display:block;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    top: 83%;
+    background-color: #fb0000;
+  }
+  .container__botao{
+    display:none;
+  }
+  .cabecalho__links{
+    padding: 10px;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .cabecalho__menu__links{
+    padding: 2% 10% 2% 10%;
+    color: rgb(255, 255, 255);
+    font-family: 'Syncopate', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+  }
+header .barra__pesquisa{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 2%;
+}
+
+  .caixa__pesquisa{
+    background-color: #ff5151;
+    color: #ffffff;
+    opacity: 80%;
+    height: 20px;
+    border: 2px solid  #ff5151;
+    border-radius: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .pesquisa__icone{
+    width: 3rem;
+  }
+  .cabecalho__menu.hidden {
+    transform: translateY(-100%);
+  }
+  
+  /* Aqui é o conteúdo da página*/
+  
+  .subtitulo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Syncopate', 'sans serif';
+    font-size: 2.2rem;
+  }
+  
+  
+  /* Aqui é o rodapé da página*/
+  
+  .rodape{
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    bottom: 0%;
+    left: 0%;
+    padding: 2%;
+    z-index: 2;
+  }
+  .rodape__login{
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: rgb(54, 54, 54);
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    bottom: 0%;
+    left: 0%;
+    padding: 2%;
+    position: fixed;
+    bottom: 0%;
+    top: 80%;
+    z-index: 2;
+  }
+  .rodape__titulo{
+    font-weight: 700;
+  }
+  .rodape__redes{
+    padding: 10px;
+    font-size: 0.75rem;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    color: beige;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+  }
+  .rodape__redes__imagem{
+    max-width: 27px;
+  }
+  
+  .input-group {
+    width: 250px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    padding: 5px 10px;
+  }
+  
+  /* Estilo do campo de entrada de pesquisa */
+  #textBusca {
+    flex: 1;
+    border: none;
+    font-size: 16px;
+    color: #555;
+    outline: none;
+    background-color: transparent;
+  }
+  
+  /* Estilo do botão de pesquisa */
+  .btn {
+    background-color: #fb0000;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+  }
+  
+  /* Imagem de fundo do botão de pesquisa */
+  .btn {
+    background-image: url('./assets/researchicon.png');
+    background-position: center;
+    background-size: 60%;
+  }
+  .cabecalho {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(255, 12, 12);
+    padding: 1px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .cabecalho.hidden {
+    transform: translateY(-100%);
+  }
+  
+  @media (min-width: 1200px){
+  
+    .hamburguer{
+    display:none;
+    opacity: 0%;
+  }
+  .cabecalho__menu{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 15%;
+    margin-left: 15%;
+    padding: 10%;
+    position: inherit;
+  }
+  .cabecalho__links{
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+  }
+  }
+  
+  
+  
+  .carro-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centralizar horizontalmente */
+    align-items: center; /* Centralizar verticalmente */
+    text-align: center; /* Centralizar o texto dentro dos elementos .info-group */
+  }
+  
+
+
+  main{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #EEE;
+  }
+  .container {
+    position: relative;
+  }
+  .container {
+    width: 100%;
+    max-width: 1150px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #FFF;
+    margin-top: 100px;
+    border-radius: 15px;
+  }
+  
+  .carro1 {
+    position: relative;
+    margin-top: 10%
+   
+   
+  }
+  
+  .carro1::before {
+    content: "";
+    position: absolute;
+    top: 60%;
+    left: 0;
+    right: 0;
+    height: 199px;
+    background-color: black;
+    transform: translateY(-50%);
+    z-index: -1;
+    
+  }
+  .linha-horizontal {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    background-color: rgb(255, 9, 9);
+    transform: translateY(-50%);
+    z-index: -1;
+    color: #ffffff;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 22px;
+  }
+  .linha-horizontal h3{
+    color: #ffffff;
+    margin-left: 1%;
+    font-size: 50px;
+  
+  }
+  .imagem-carro{
+    border-radius: 2%;
+  }
+  .form-container {
+    background-color: red;
+    color: black;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+    align-self: flex-start;
+    margin-left: 40%;
+    
+  }
+  
+  
+
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+  }
+  
+  .submit-btn {
+    animation: pulsate 1s ease-in-out infinite;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #333;
+  }
+  
+  
+  
+  .material-icons{
+    color: #fb0000;
+    margin-top: 20px;
+  }
+  .desc {
+    font-size: 20px;
+    margin-top: 10%;
+    color: #000000;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .animacao__homepage__acesso {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .animacao__homepage__link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: rgb(255, 0, 0);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .animacao__homepage__link:hover {
+    background-color: #000000;
+  }
+
+
+
+
+/* Alex*/
+
+.nomeCarro{
+    width: 100%;
+    height: 100px;
+    padding:30px 0 10px 20px ;
+}
+
+.nomeCarro h2{
+    color: #37474F;
+    font-size: 1.8rem;
+    margin: 0 ;
+}
+
+.nomeCarro p {
+    margin: 0;
+    font-size: 1rem;
+    color: #AAA;
+}
+
+.carro{
+    width: 100%;
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+.carro .carro1{
+    margin: 0px 0px 0px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carro .carro1 h2{
+    text-align: center;
+    color:#B71C1C ;
+}
+.carro .carro1 img{
+    border-radius: 15px;
+    width: 450px;
+    margin-bottom: 20px;
+}
+
+.carro-info{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 10px;
+}
+
+.carro-info .info-group i{
+    font-size: 1.4rem;
+}
+.carro .info-group p{
+    margin: 0;
+    color: #555;
+    font-size: 1.1rem;
+}
+.carro .info-group span{
+    color: #212121;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.carro-info .info-group{
+    width: 20%;
+    margin: 0px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.detalhes{
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.desc{
+    flex: 1;
+    margin: 0 20px;
+}
+
+.desc h1{
+    color: #37474F;
+}
+.desc span{
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.form{
+    flex: 1;
+}
+
+.form h1{
+    color:#37474F ;
+}
+
+.inpu-form{
+    background-color:#ECEFF1;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.inpu-form label{
+    color: #37474F;
+    font-weight: bold;
+}
+
+.inpu-form input,
+.inpu-form textarea
+{
+    margin: 5px 0 20px;
+    outline: none;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #CCC;
+    
+}
+
+.whatsapp-link {
+     
+            background-color: #25D366;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            float: right;
+            margin-bottom: 2%;
+            margin-right: 15%;
+            border-radius: 2%;
+            font-size: 150%;
+        }
+
+        .whatsapp-link:hover {
+            background-color: #128C7E;
+            
+        }
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=], initial-scale=1.0">
+
+    <link rel="stylesheet" href="/public/assets/index.css">
+    <title>Info Carro</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="cabecalho">
+        <img class="logo" src="/assets/logo.png" alt="logo" width="120px">
+        <input type="checkbox" id="menu" class="container__botao">
+        <label for="menu">
+        <img  class="hamburguer" style="width:50px" src="/assets/menuhamburguer.png" alt="hamburguer">
+        </label>
+        <ul class="cabecalho__menu">
+            <li class="cabecalho__links"><a class="cabecalho__menu__links" href="/">HOME</a></li>
+            <a href="public/assets/carro.pdf" class="cabecalho__menu__links" download>DOWNLOAD CATÁLOGO</a>
+            <li class="cabecalho__links"><a class="cabecalho__menu__links" href="cadastro">CADASTRO</a></li>
+        </ul>
+        <div class="barra__pesquisa">
+            <form action="/info" method="get">
+              <div class="input-group">
+                <input type="text" name="searchTerm" id="textBusca" placeholder="Buscar...">
+                <button type="submit" class="btn" style="background-image: url('/assets/researchicon.png');"></button>
+              </div>
+            </form>
+          </div>
+    </header>
+    <main>
+      
+      <div class="container">
+            <div class="nomeCarro">
+                <h2><%= carro.nome %></h2>
+                <p><%= carro.marca %></p>
+            </div>
+
+            <div class="carro">
+                <div class="carro1">
+                  <img class="imagem-carro" src="data:image/jpeg;base64, <%= imagemBase64 %>" alt="Imagem do Carro">
+                    <h2 class="preco"><span>R$</span>  <%= carro.preco %></h2>
+                </div>
+
+                <div class="carro-info">
+                  <div class="info-group">
+                    <i class="material-icons">sync_alt</i> <p>Câmbio</p><span><%= carro.cambio %></span> 
+                  </div>
+                  <div class="info-group">
+                    <i class="material-icons">local_gas_station</i> <p>Combustível</p><span><%= carro.combustivel %></span> 
+                  </div>
+                  <div class="info-group">
+                    <i class="material-icons">speed</i> <p>Quilometragem</p><span><%= carro.quilometragem %></span>  
+                  </div>
+                  <div class="info-group">
+                    <i class="material-icons">settings</i> <p>Motor</p> <span><%= carro.motor %></span> 
+                  </div>
+                  <div class="info-group">
+                    <i class="material-icons">date_range</i> <p>Ano/Modelo</p><span><%= carro.ano_modelo %></span>  
+                  </div>
+                  <div class="info-group">
+                    <i class="material-icons">location_city</i> <p>Cidade</p><span><%= carro.cidade %></span>
+                  </div>
+                  <div class="info-group">
+                    <i class="material-icons">public</i> <p>Estado</p><span><%= carro.estado %></span> 
+                  </div>
+                  <div class="info-group">
+                    <i class="material-icons">language</i> <p>País</p><span><%= carro.pais %></span>  
+                </div>     
+                </div>
+            </div>
+            <div>     <a class="whatsapp-link" href="https://api.whatsapp.com/send?phone=SEU_NUMERO_DE_TELEFONE_AQUI">Suporte via WhatsApp</a></div>
+            <hr>
+            
+            <div class="detalhes">
+                <div class="desc">
+                    <h1>Acessórios</h1>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate distinctio, incidunt possimus, ullam, sed cum molestiae dolores non nemo quaerat sapiente beatae vel autem odit numquam necessitatibus maxime vitae perspiciatis?</span>
+                    <%= carro.descricao %>
+                </div>
+                <form action="/enviar-proposta"class="form" method="POST">
+                    <h1>Faça uma Proposta</h1>
+                    <div class="inpu-form">
+                      <label for="nome">Nome:</label>
+                      <input type="text" id="nome" name="nome" required>
+
+                      <label for="email">E-mail:</label>
+                      <input type="text" id="email" name="email" required>
+                        
+                      <label for="proposta">Proposta:</label>
+                      <textarea id="proposta" name="proposta" rows="4" required></textarea>
+                      <input type="submit" value="Enviar Proposta" class="submit-btn">
+                 
+                    </div>
+                </div>
+            </div>
+        </div>
+      </form>
+    </main>
+    <section style="height: 200px;"></section>  
+    <footer class="rodape">
+        <div>
+            <p class="rodape__titulo">REDES SOCIAIS</p>
+            <a class="rodape__redes" href="https://www.instagram.com/">
+            <img src="../assets/instagramlogo.png" alt="instagramlogo" width="27px"> Instagram
+            </a>
+            <a class="rodape__redes" href="https://twitter.com/home?lang=pt">
+            <img src="../assets/twitterlogo.png" alt="twitterlogo" width="27px"> Twitter
+            </a>
+            <a class="rodape__redes" href="https://www.tiktok.com/pt-BR"> <img class="rodape__redes__imagem" alt="tiktoklogo" src="../assets/tiktoklogo.png" width="27px"> Tiktok
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+<script>
+    let prevScrollpos = window.pageYOffset;
+
+window.onscroll = function() {
+  const currentScrollPos = window.pageYOffset;
+  
+  if (prevScrollpos > currentScrollPos) {
+    document.querySelector('.cabecalho').classList.remove('hidden');
+  } else {
+    document.querySelector('.cabecalho').classList.add('hidden');
+  }
+  
+  prevScrollpos = currentScrollPos;
+}
+  
+   
+
+  
+</script>
